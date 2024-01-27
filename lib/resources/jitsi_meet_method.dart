@@ -20,8 +20,13 @@ class JitsiMeetMethods {
       if (isAudioMuted) {
         featureFlags.putIfAbsent('startWithAudioMuted', () => true);
       }
+
+      // Disable password requirement:
+      // featureFlags.putIfAbsent('password', () => '');
+
       var options = JitsiMeetingOptions(
-        roomNameOrUrl: roomName,
+        roomNameOrUrl: 'my-name',
+        serverUrl: 'https://meet.jit.si',
         configOverrides: {
           "startWithAudioMuted": isAudioMuted,
           "startWithVideoMuted": isVideoMuted,
@@ -35,7 +40,16 @@ class JitsiMeetMethods {
       );
 
       _firestore.addToMeetingHistory(roomName);
-      await JitsiMeetWrapper.joinMeeting(options: options);
+      await JitsiMeetWrapper.joinMeeting(
+        options: options,
+        listener: JitsiMeetingListener(
+          onConferenceWillJoin: (url) =>
+              print("onConferenceWillJoin: url: $url"),
+          onConferenceJoined: (url) => print("onConferenceJoined: url: $url"),
+          onConferenceTerminated: (url, error) =>
+              print("onConferenceTerminated: url: $url, error: $error"),
+        ),
+      );
     } catch (error) {
       print("error: $error");
     }

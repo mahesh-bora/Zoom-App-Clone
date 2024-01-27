@@ -37,7 +37,7 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
     // JitsiMeet.removeAllListeners();
   }
 
-  _joinMeeting() {
+  _joinMeeting() async {
     _jitsiMeetMethods.createMeeting(
       roomName: meetingIdController.text,
       isAudioMuted: isAudioMuted,
