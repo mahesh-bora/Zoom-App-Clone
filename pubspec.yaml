@@ -41,6 +41,8 @@ dependencies:
   cloud_firestore: ^4.14.0
   firebase_auth: ^4.16.0
   firebase_core: ^2.24.2
+#  jitsi_meet_flutter_sdk: ^0.1.9
+  jitsi_meet_wrapper: ^0.2.0+1
 
 dev_dependencies:
   flutter_test:
